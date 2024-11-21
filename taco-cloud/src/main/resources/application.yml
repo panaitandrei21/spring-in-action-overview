@@ -2,3 +2,20 @@ spring:
   datasource:
   generate-unique-name: false
   name: tacocloud
+  security:
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 1230648028216677
+            client-secret: 0baf3344134bb41a1cafb07049eae469
+            scope:
+              - email
+              - public_profile
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
