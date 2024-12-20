@@ -1,3 +1,4 @@
+
 spring:
   datasource:
   generate-unique-name: false
@@ -8,7 +9,7 @@ spring:
         registration:
           facebook:
             client-id: 1230648028216677
-            client-secret: //change here
+            client-secret: 536e8c70bdbd782009c2eef63ab63d6e
             scope:
               - email
               - public_profile
@@ -18,4 +19,8 @@ logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: WARN
+taco:
+  orders:
+    pageSize: 35
+

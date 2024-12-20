@@ -28,6 +28,8 @@ public class TacoOrder implements Serializable {
     private String deliveryCity;
     @NotBlank(message="State is required")
     private String deliveryState;
+    @ManyToOne
+    private User user;
     @NotBlank(message="Zip code is required")
     private String deliveryZip;
     @CreditCardNumber(message="Not a valid credit card number")
