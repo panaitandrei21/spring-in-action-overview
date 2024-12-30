@@ -1,4 +1,5 @@
 package com.authserver.authorization;
+
 import com.authserver.model.User;
 import com.authserver.repository.UserRepository;
 import org.springframework.boot.ApplicationRunner;
@@ -27,6 +28,7 @@ public class SecurityConfig {
                 .formLogin()
                 .and().build();
     }
+
     @Bean
     UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> userRepo.findByUsername(username);
