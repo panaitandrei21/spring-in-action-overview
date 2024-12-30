@@ -1,5 +1,6 @@
 package com.authserver.authorization;
 
+import com.authserver.repository.JpaRegisteredClientRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
@@ -48,23 +49,6 @@ public class AuthorizationServerConfig {
                 .build();
     }
 
-    @Bean
-    public RegisteredClientRepository registeredClientRepository(PasswordEncoder passwordEncoder) {
-        RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("taco-admin-client")
-                .clientSecret(passwordEncoder.encode("secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:9090/login/oauth2/code/taco-admin-client") // Ensure this matches the client's request
-                .scope("writeIngredients")
-                .scope("deleteIngredients")
-                .scope(OidcScopes.OPENID)
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-                .build();
-
-        return new InMemoryRegisteredClientRepository(registeredClient);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

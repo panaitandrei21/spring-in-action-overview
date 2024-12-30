@@ -1,7 +1,6 @@
 package com.authserver.authorization;
-import com.authserver.User;
-import com.authserver.UserRepository;
-import lombok.val;
+import com.authserver.model.User;
+import com.authserver.repository.UserRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,12 +9,8 @@ import org.springframework.security.config.annotation.web.builders.
 import org.springframework.security.config.annotation.web.configuration.
         EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 @Configuration
@@ -23,9 +18,13 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
-        return http.authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().authenticated()
-                ).formLogin()
+        return http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll() // Permite accesul la H2 Console
+                        .anyRequest().authenticated()
+                )
+                .csrf().disable()
+                .headers(headers -> headers.frameOptions().disable()) // Dezactivează X-Frame-Options
+                .formLogin()
                 .and().build();
     }
     @Bean

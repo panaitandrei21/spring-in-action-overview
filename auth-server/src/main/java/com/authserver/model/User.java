@@ -1,4 +1,4 @@
-package com.authserver;
+package com.authserver.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.List;
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity(name = "users")
