@@ -19,11 +19,11 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
         return http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Permite accesul la H2 Console
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf().disable()
-                .headers(headers -> headers.frameOptions().disable()) // Dezactivează X-Frame-Options
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions().disable())
                 .formLogin()
                 .and().build();
     }
